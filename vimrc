@@ -9,8 +9,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'Valloric/YouCompleteMe'
-Plug 'rdnetto/YCM-Generator'
+" Plug 'Valloric/YouCompleteMe' " For Ultisnips
+" Plug 'rdnetto/YCM-Generator'
 Plug 'scrooloose/nerdtree'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
@@ -27,6 +27,7 @@ Plug 'junegunn/vim-easy-align' " Plugin to allow easy alignment around various s
 Plug 'easymotion/vim-easymotion' "Plugin to make it easier to use motions to jump to words and characters
 Plug 'mhinz/vim-startify' "Plugin to provide a useful start screen in vim
 Plug 'mhinz/vim-sayonara' "Plugin to make it easy to delete a buffer and close the file
+" Plug 'chriskempson/base16-vim', { 'do': function('FixupBase16') } "Base16 color schemes
 Plug 'chriskempson/base16-vim' "Base16 color schemes
 Plug 'christoomey/vim-tmux-navigator' "vim/tmux navigator
 Plug 'tpope/vim-sleuth'
@@ -38,6 +39,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy search
 Plug 'junegunn/fzf.vim'
 Plug 'w0rp/ale'
 Plug 'heavenshell/vim-jsdoc'
+Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
 set nocompatible
@@ -69,7 +71,6 @@ filetype plugin indent on    " required
 " Never automatically continue comment on next line
 " au FileType * set fo-=c fo-=r fo-=o
 
-
 syntax enable
 set background=dark
 
@@ -80,6 +81,54 @@ endif
 
 " F6 -> reload all buffers and keep color scheme intact
 " noremap <F6> :execute 'bufdo :e' | source $VIMRUNTIME/syntax/syntax.vim
+
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+" TODO replace with Plug 'piec/vim-lsp-clangd' 
+if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd', '-background-index']},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> gp <plug>(lsp-peek-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    inoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    inoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.py,*.cpp,*.c,*.h call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
 
 " configure ALE linters
@@ -161,11 +210,6 @@ let g:fzf_action = {
 " Check this link if having issues with displaying 'down'
 " https://github.com/junegunn/fzf/issues/1486
 let g:fzf_layout = { 'up': '~40%' }
-
-" Git commands
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gb :Gblame<CR>
 
 " tagbar config. Enable it using this key map:
 nmap <F8> :TagbarToggle<CR>

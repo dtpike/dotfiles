@@ -5,6 +5,7 @@
 .clang-format
 .ycm_extra_conf.*
 CMakeCache.txt
-CMakeFiles/
 .vscode/*
 *.code-workspace
+./build*
+./compile_commands.json
