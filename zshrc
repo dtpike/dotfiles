@@ -63,7 +63,7 @@ alias checkavx2='find -type f -executable | xargs objdump --disassemble | egrep 
 [ -f ~/.localrc ] && source ~/.localrc
 [ -f ~/.pathrc ] && source ~/.pathrc
 [ -f ~/.dircolors ] && eval "$(dircolors ~/.dircolors)"
-[ -f ~/venv/bin/activate ] && source ~/venv/bin/activate # Source virtual environment if activate script exists
+[ -f ~/.venv/bin/activate ] && source ~/.venv/bin/activate # Source virtual environment if activate script exists
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
