@@ -1,0 +1,81 @@
+{
+  "License": {
+    "prefix": ["lic"],
+    "body": [
+      "/*******************************************************************",
+      " **                                                               **",
+      " **  Copyright(C) 2022 Ouster Inc. All Rights Reserved.           **",
+      " **  Contact: https://ouster.io                                   **",
+      " **                                                               **",
+      " *******************************************************************/\n"
+    ],
+    "description": "Ouster license"
+  },
+  "Catch": {
+    "prefix": ["catch"],
+    "body": [
+      "#include <catch2/catch.hpp>\n",
+      "namespace ouster::perception {\n",
+      " // NOLINTNEXTLINE",
+      "TEST_CASE(\"${1:TEST_CASE}\") {",
+      "  SECTION(\"${2:SECTION}\") {",
+      "  }",
+      "}\n",
+      "} // namespace ouster::perception"
+    ],
+    "description": "Ouster license"
+  },
+  "Print": {
+    "prefix": ["cout"],
+    "body": [
+      "std::cout << $1 << std::endl;"
+    ],
+    "description": "Print to console"
+  },
+  "Main": {
+    "prefix": ["main"], "body": [
+      "int main(int argc, char* argv[]) {  // NOLINT",
+      "}"
+    ],
+    "description": "Main application template"
+  },
+  "Sleep": {
+    "prefix": ["sleep"],
+    "body": [
+      "std::this_thread::sleep_for(std::chrono::milliseconds($1));"
+    ],
+    "description": "Standard library sleep"
+  },
+  "async": {
+    "prefix": ["async"],
+    "body": [
+      "auto $1 = std::async(std::async::launch, [this]() {});"
+    ],
+    "description": "Async task skeleton"
+  },
+  "iterate2darray": {
+    "prefix": ["2darray"],
+    "body": [
+    "for (auto col_index = 0; col_index < cloud.range_image().cols(); ++col_index) {\n",
+        "    for (auto row_index = 0; row_index < cloud.range_image().rows(); ++row_index) {\n",
+        "    }\n",
+    "}"
+    ],
+    "description": "Standard library sleep"
+  },
+  "class": {
+    "prefix": ["class"],
+    "body": [
+        "class ${1:MyClass} {\n",
+        "   public:\n\n",
+        "    $1() = default;",
+        "    $1(const $1&) = delete;",
+        "    $1($1&&) = delete;",
+        "    $1& operator=(const $1&) = delete;",
+        "    $1& operator=($1&&) = delete;",
+        "    ~$1() = default;",
+        "};"
+    ],
+    "description": "C++ class"
+  }
+}

@@ -1,0 +1,7 @@
+# Site-specific path settings here:
+export PATH="${HOME}/bin:${HOME}/.local/bin:$PATH"
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+# Don't use cached preprocessor output
+export CCACHE_CPP2=true
+

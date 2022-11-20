@@ -1,0 +1,19 @@
+[color]
+        ui = auto
+[alias]
+        lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+[credential]
+        helper = cache --timeout=28800
+[push]
+        default = simple
+[pull]
+	rebase = true
+[core]
+        excludesfile = ~/dotfiles/gitignore
+[giggle]
+        main-window-maximized = true
+        main-window-geometry = 492x168+65+24
+        history-view-vpane-position = 704
+        main-window-view = HistoryView
+        file-view-vpane-position = 753

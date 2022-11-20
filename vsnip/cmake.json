@@ -1,0 +1,44 @@
+{
+  "Library Target": {
+    "prefix": ["add_library"],
+    "body": [
+      "add_library($1",
+      "  $1.cpp",
+      "  )",
+      "target_include_directories($1 PUBLIC",
+      "  \$\{PROJECT_SOURCE_DIR\}/include",
+      "  )",
+      "target_link_libraries($1 PUBLIC",
+      "  perception",
+      "  )\n"
+    ],
+    "description": "Boilerplate for adding cmake library target"
+  },
+  "Executable Target": {
+    "prefix": ["add_executable"],
+    "body": [
+      "add_executable($1",
+      "  $1.cpp",
+      "  )",
+      "target_include_directories($1 PRIVATE",
+      "  \$\{PROJECT_SOURCE_DIR\}/include",
+      "  )",
+      "target_link_libraries($1 PUBLIC",
+      "  )\n"
+    ],
+    "description": "Boilerplate for adding cmake executable target"
+  },
+  "Test Target": {
+    "prefix": ["add_test"],
+    "body": [
+      "add_executable($1",
+      "  $1.cpp",
+      "  )",
+      "target_link_libraries($1 PUBLIC",
+      "  catch2",
+      "  )",
+      "catch_discover_tests($1)"
+    ],
+    "description": "Boilerplate for adding cmake test target"
+  }
+}
