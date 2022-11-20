@@ -35,7 +35,6 @@ Plug 'mengelbrecht/lightline-bufferline' " buffer display
 Plug 'prabirshrestha/vim-lsp'
 Plug 'tpope/vim-commentary'
 
-
 call plug#end()
 
 " colorscheme
@@ -47,7 +46,8 @@ colorscheme hybrid
 let mapleader="\;"
 
 " fzf
-nnoremap <leader>f :Files<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fa :Ag<CR>
 let g:fzf_layout = { 'up': '~40%' }
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
