@@ -34,6 +34,7 @@ Plug 'christoomey/vim-tmux-navigator' "tmux navigation
 Plug 'mengelbrecht/lightline-bufferline' " buffer display
 Plug 'prabirshrestha/vim-lsp'
 Plug 'tpope/vim-commentary'
+Plug 'github/copilot.vim'
 
 call plug#end()
 
