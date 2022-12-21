@@ -35,6 +35,7 @@ Plug 'mengelbrecht/lightline-bufferline' " buffer display
 Plug 'prabirshrestha/vim-lsp'
 Plug 'tpope/vim-commentary'
 Plug 'github/copilot.vim'
+Plug 'rhysd/vim-clang-format'
 
 call plug#end()
 
@@ -45,7 +46,7 @@ let g:hybrid_reduced_contrast = 1 " Remove if using the default palette.
 colorscheme hybrid
 
 " Wrapping
-autocmd BufRead,BufNewFile *.py setlocal textwidth=79
+" autocmd BufRead,BufNewFile *.py setlocal textwidth=79
 autocmd BufRead,BufNewFile *.md setlocal textwidth=79
 
 let mapleader="\;"
@@ -116,6 +117,19 @@ nnoremap <S-Tab> :bprevious<CR>
 " commentary plugin uses /* style */ comments for C family, use '//' instead
 autocmd FileType c setlocal commentstring=//\ %s 
 autocmd FileType cpp setlocal commentstring=//\ %s 
+
+""
+"" Formatting
+"""""""""""""
+
+" clang-format
+let g:clang_format#detect_style_file = 1
+let g:clang_format#auto_format = 1
+let g:clang_format#auto_format_on_insert_leave = 0
+let g:clang_format#auto_formatexpr = 0
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>fd :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>fd :ClangFormat<CR>
+
 
 ""
 "" LSP settings
