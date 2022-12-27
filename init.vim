@@ -33,11 +33,22 @@ Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator' "tmux navigation
 Plug 'mengelbrecht/lightline-bufferline' " buffer display
 Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+
 Plug 'tpope/vim-commentary'
 Plug 'github/copilot.vim'
 Plug 'rhysd/vim-clang-format'
 
 call plug#end()
+
+let mapleader=";"
+
+" open vimrc
+nnoremap <leader>ve :e $MYVIMRC<CR>
+nnoremap <leader>vs :source $MYVIMRC<CR>
+" Automatically source vimrc on save (NOT WORKING with bufferline)
+" autocmd BufWritePost $MYVIMRC source %
 
 " colorscheme
 set background=dark
@@ -48,8 +59,6 @@ colorscheme hybrid
 " Wrapping
 " autocmd BufRead,BufNewFile *.py setlocal textwidth=79
 autocmd BufRead,BufNewFile *.md setlocal textwidth=79
-
-let mapleader="\;"
 
 " fzf
 nnoremap <leader>ff :Files<CR>
@@ -118,8 +127,18 @@ nnoremap <S-Tab> :bprevious<CR>
 autocmd FileType c setlocal commentstring=//\ %s 
 autocmd FileType cpp setlocal commentstring=//\ %s 
 
-""
-"" Formatting
+"
+" Completions
+"""""""""""""
+set completeopt=menuone,noinsert,noselect,preview
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+inoremap <expr> q       pumvisible() ? asyncomplete#cancel_popup() : "q"
+
+"
+" Formatting
 """""""""""""
 
 " clang-format
@@ -131,8 +150,8 @@ autocmd FileType c,cpp,objc nnoremap <buffer><Leader>fd :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><Leader>fd :ClangFormat<CR>
 
 
-""
-"" LSP settings
+"
+" LSP settings
 """""""""""""""
 
 function! s:on_lsp_buffer_enabled() abort
@@ -162,20 +181,21 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
-if executable('pylsp')
-    " pip install python-lsp-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pylsp',
-        \ 'cmd': {server_info->['pylsp']},
-        \ 'allowlist': ['python'],
-        \ })
-endif
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_highlights_enabled = 1
+let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_signs_enabled = 1
+let g:lsp_diagnostics_signs_insert_mode_enabled = 0
+let g:lsp_diagnostics_virtual_text_enabled = 0
 
-if executable('clangd-12')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': {server_info->['clangd-12', '-background-index', '-header-insertion=never']},
-        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-        \ })
-endif
+let g:lsp_diagnostics_signs_error = {'text': '✗'}
+let g:lsp_diagnostics_signs_warning = {'text': '‼>'} " icons require GUI
+let g:lsp_diagnostics_signs_hint = {'text': '#'} " icons require GUI
+
+
+let g:lsp_settings = {
+\  'clangd': {'cmd': ['clangd-12', '--background-index', '--header-insertion=never', '--clang-tidy']},
+\  'efm-langserver': {'disabled': v:false}
+\}
 
