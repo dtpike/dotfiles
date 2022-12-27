@@ -94,28 +94,17 @@ let g:lightline#bufferline#unnamed      = '[No Name]'
 let g:lightline#bufferline#enable_devicons = 1
 let g:lightline#bufferline#unicode_symbols = 1
 
-nmap <Leader>1 <Plug>lightline#bufferline#go(1)
-nmap <Leader>2 <Plug>lightline#bufferline#go(2)
-nmap <Leader>3 <Plug>lightline#bufferline#go(3)
-nmap <Leader>4 <Plug>lightline#bufferline#go(4)
-nmap <Leader>5 <Plug>lightline#bufferline#go(5)
-nmap <Leader>6 <Plug>lightline#bufferline#go(6)
-nmap <Leader>7 <Plug>lightline#bufferline#go(7)
-nmap <Leader>8 <Plug>lightline#bufferline#go(8)
-nmap <Leader>9 <Plug>lightline#bufferline#go(9)
-nmap <Leader>0 <Plug>lightline#bufferline#go(10)
-
 " tmux-style navigation
 nnoremap <c-j> <C-w>j
 nnoremap <c-k> <C-w>k
 nnoremap <c-h> <C-w>h
 nnoremap <c-l> <C-w>l
 
-noremap <silent> {Left-Mapping} :<C-U>TmuxNavigateLeft<cr>
-noremap <silent> {Down-Mapping} :<C-U>TmuxNavigateDown<cr>
-noremap <silent> {Up-Mapping} :<C-U>TmuxNavigateUp<cr>
-noremap <silent> {Right-Mapping} :<C-U>TmuxNavigateRight<cr>
-noremap <silent> {Previous-Mapping} :<C-U>TmuxNavigatePrevious<cr>
+nnoremap <silent> {Left-Mapping} :<C-U>TmuxNavigateLeft<cr>
+nnoremap <silent> {Down-Mapping} :<C-U>TmuxNavigateDown<cr>
+nnoremap <silent> {Up-Mapping} :<C-U>TmuxNavigateUp<cr>
+nnoremap <silent> {Right-Mapping} :<C-U>TmuxNavigateRight<cr>
+nnoremap <silent> {Previous-Mapping} :<C-U>TmuxNavigatePrevious<cr>
 let g:tmux_navigator_save_on_switch = 1 " Save on switch
 
 
@@ -126,6 +115,11 @@ nnoremap <S-Tab> :bprevious<CR>
 " commentary plugin uses /* style */ comments for C family, use '//' instead
 autocmd FileType c setlocal commentstring=//\ %s 
 autocmd FileType cpp setlocal commentstring=//\ %s 
+
+"
+" Copilot plugin
+""""""""""""""""
+
 
 "
 " Completions
@@ -188,10 +182,9 @@ let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_diagnostics_signs_enabled = 1
 let g:lsp_diagnostics_signs_insert_mode_enabled = 0
 let g:lsp_diagnostics_virtual_text_enabled = 0
-
 let g:lsp_diagnostics_signs_error = {'text': '✗'}
-let g:lsp_diagnostics_signs_warning = {'text': '‼>'} " icons require GUI
-let g:lsp_diagnostics_signs_hint = {'text': '#'} " icons require GUI
+let g:lsp_diagnostics_signs_warning = {'text': '‼'}
+let g:lsp_diagnostics_signs_hint = {'text': '#'}
 
 
 let g:lsp_settings = {
