@@ -40,6 +40,7 @@ Plug 'tpope/vim-commentary'
 Plug 'github/copilot.vim'
 Plug 'rhysd/vim-clang-format'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'danymat/neogen'
 
 call plug#end()
 
@@ -194,10 +195,10 @@ let g:lsp_settings = {
 \}
 
 
-"
-" neovim-treesitter
-"""""""""""""""""""
 lua << EOF
+-----------------------------------------------
+-- neovim-treesitter
+-----------------------------------------------
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {"cpp", "python"},
     -- Install asynchronously
@@ -221,4 +222,9 @@ require'nvim-treesitter.configs'.setup {
         additional_vim_regex_highlighting = false,
   },
 }
+-----------------------------------------------
+-- neogen
+-----------------------------------------------
+require('neogen').setup({})
 EOF
+
