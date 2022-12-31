@@ -225,6 +225,14 @@ require'nvim-treesitter.configs'.setup {
 -----------------------------------------------
 -- neogen
 -----------------------------------------------
-require('neogen').setup({})
+require'neogen'.setup {
+    enabled = true,
+    languages = {
+        python = {
+            template = { annotation_convention = "google_docstrings" }
+        },
+    }
+}
 EOF
 
+nnoremap <leader>d :Neogen<CR>
