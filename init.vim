@@ -166,7 +166,7 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> K <plug>(lsp-hover)
 
     let g:lsp_format_sync_timeout = 1000
-    " autocmd! BufWritePre *.cpp, *.c, *.h, *.py, *.rs call execute('LspDocumentFormatSync')
+    autocmd! BufWritePre * call execute('LspDocumentFormatSync')
     
     " refer to doc to add more commands
 endfunction
