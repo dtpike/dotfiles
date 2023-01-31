@@ -5,6 +5,7 @@ DOTFILES_ROOT=$(dirname $SCRIPT_PATH)
 
 echo "Installing dotfiles from ${DOTFILES_ROOT}..."
 
+mkdir -p ${HOME}/.config/nvim/
 ln -sf ${DOTFILES_ROOT}/init.vim ${HOME}/.config/nvim/init.vim
 ln -sf ${DOTFILES_ROOT}/init.vim ${HOME}/.vimrc
 ln -sf ${DOTFILES_ROOT}/zshrc ${HOME}/.zshrc
