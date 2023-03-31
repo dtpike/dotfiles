@@ -42,6 +42,10 @@ Plug 'rhysd/vim-clang-format'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'danymat/neogen'
 
+" Tempoarily adding vsnip but should replace this with something else
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
 call plug#end()
 
 let mapleader=";"
@@ -65,6 +69,7 @@ autocmd BufRead,BufNewFile *.md setlocal textwidth=79
 " fzf
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fa :Ag<CR>
+nnoremap <leader>fb :Buffers<CR>
 let g:fzf_layout = { 'up': '~40%' }
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -117,11 +122,6 @@ nnoremap <S-Tab> :bprevious<CR>
 " commentary plugin uses /* style */ comments for C family, use '//' instead
 autocmd FileType c setlocal commentstring=//\ %s 
 autocmd FileType cpp setlocal commentstring=//\ %s 
-
-"
-" Copilot plugin
-""""""""""""""""
-
 
 "
 " Completions
@@ -190,7 +190,7 @@ let g:lsp_diagnostics_signs_hint = {'text': '#'}
 
 
 let g:lsp_settings = {
-\  'clangd': {'cmd': ['clangd-12', '--background-index', '--header-insertion=never', '--clang-tidy']},
+\  'clangd': {'cmd': ['clangd-13', '--background-index', '--header-insertion=never', '--clang-tidy']},
 \  'efm-langserver': {'disabled': v:false}
 \}
 
@@ -235,4 +235,31 @@ require'neogen'.setup {
 }
 EOF
 
-nnoremap <leader>d :Neogen<CR>
+"
+" Neogen config for documentation
+"""""""""""""""""""""""""""""""""
+nnoremap <leader>df :Neogen func<CR>
+nnoremap <leader>dc :Neogen class<CR>
+nnoremap <leader>dd :Neogen<CR>
+
+"
+" vsnip config
+""""""""""""""
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+let g:vsnip_snippet_dir = '~/dotfiles/vsnip'
+
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
+" vim.lsp.set_log_level("trace")

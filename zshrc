@@ -30,7 +30,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 
 # Default to ccache if available
 if type ccache > /dev/null; then
-  ccache -M 40 > /dev/null
+  ccache -M 50 > /dev/null
   # Don't use cached preprocessor output
   export CCACHE_CPP2=true
 fi
@@ -41,8 +41,9 @@ export GTEST_COLOR=yes
 alias l='ls -lhtr'
 
 # general aliases
-alias ja='cmake --build --preset development -- -j 12'
-alias jap='cmake --build --preset production -- -j 12'
+alias jad='cmake --build --preset debug -- -j 12 '
+alias ja='cmake --build --preset development -- -j 12 '
+alias jap='cmake --build --preset production -- -j 12 '
 alias now='watch -x -t -n 0.01 date +%s.%N'
 alias du='du -h --max-depth=1'
 alias df='df -h'
@@ -70,6 +71,9 @@ alias checkavx2='find -type f -executable | xargs objdump --disassemble | egrep 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="$HOME/bin:$PATH"
+
 
 # Turn off the fucking bell
 unsetopt BEEP
