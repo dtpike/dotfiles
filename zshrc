@@ -67,12 +67,15 @@ alias checkavx2='find -type f -executable | xargs objdump --disassemble | egrep 
 [ -f ~/.dircolors ] && eval "$(dircolors ~/.dircolors)"
 [ -f ~/.venv/bin/activate ] && source ~/.venv/bin/activate # Source virtual environment if activate script exists
 
-# nvm setup
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+
 export PATH="$HOME/bin:$PATH"
+
+# Increase the sccache size
+export SCCACHE_CACHE_SIZE="50G"
 
 
 # Turn off the fucking bell
