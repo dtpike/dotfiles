@@ -65,6 +65,10 @@ colorscheme hybrid
 " Wrapping
 " autocmd BufRead,BufNewFile *.py setlocal textwidth=79
 autocmd BufRead,BufNewFile *.md setlocal textwidth=79
+autocmd BufRead,BufNewFile *.rst setlocal tabstop=3 shiftwidth=3 expandtab
+
+" Set groovy filetype for jenkins config files
+autocmd BufNewFile,BufRead Jenkinsfile setf groovy
 
 " fzf
 nnoremap <leader>ff :Files<CR>
