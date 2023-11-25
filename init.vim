@@ -7,7 +7,6 @@ set autoindent              " indent a new line the same amount as the line
 set number                  " add line numbers
 set wildmode=longest,list   " get bash-like tab completions
 set noshowmode              " Don't show the mode since we're using lightline
-set cc=80                   " set colour columns for good coding style
 set expandtab               " convert tabs to white space
 set tabstop=4               " number of columns occupied by a tab character
 set shiftwidth=4            " width for autoindents
@@ -26,7 +25,7 @@ endif
 " specify directory for plugins
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'w0ng/vim-hybrid' "colorscheme
+Plug 'nordtheme/vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
@@ -58,14 +57,12 @@ nnoremap <leader>vs :source $MYVIMRC<CR>
 
 " colorscheme
 set background=dark
-let g:hybrid_custom_term_colors = 1
-let g:hybrid_reduced_contrast = 1 " Remove if using the default palette.
-colorscheme hybrid
+colorscheme nord
 
 " Wrapping
-" autocmd BufRead,BufNewFile *.py setlocal textwidth=79
-autocmd BufRead,BufNewFile *.md setlocal textwidth=79
+autocmd BufRead,BufNewFile *.md setlocal textwidth=79 cc=80
 autocmd BufRead,BufNewFile *.rst setlocal tabstop=3 shiftwidth=3 expandtab
+autocmd BufRead,BufNewFile *.py setlocal textwidth=88 cc=88
 
 " Set groovy filetype for jenkins config files
 autocmd BufNewFile,BufRead Jenkinsfile setf groovy
@@ -74,7 +71,7 @@ autocmd BufNewFile,BufRead Jenkinsfile setf groovy
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fa :Ag<CR>
 nnoremap <leader>fb :Buffers<CR>
-let g:fzf_layout = { 'up': '~40%' }
+let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
@@ -82,7 +79,7 @@ let g:fzf_action = {
 
 " lightline/bufferline
 let g:lightline = {
-      \ 'colorscheme': 'simpleblack',
+      \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
       \ },
