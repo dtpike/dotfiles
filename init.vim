@@ -25,7 +25,8 @@ endif
 " specify directory for plugins
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'nordtheme/vim'
+" Plug 'nordtheme/vim'
+Plug 'jasonlong/nord-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
