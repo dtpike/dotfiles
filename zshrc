@@ -59,9 +59,12 @@ alias gcoa='git checkout \*'
 alias htree='tree --prune -P "*.h"'
 alias gbc='git branch | cat | grep -v master | xargs git branch -D {}'
 alias clswp="find -name '*.swp' -exec rm {} \;"
+alias tf='terraform'
 
 # Docker run aliases
 alias dps='docker ps --format "table {{.Names}} \t {{.Status}} \t {{.Ports}}"'
+alias dri='docker run -ti --rm -v /home/$USER:/home/$USER --user $(id -u):$(id -g)'
+alias http='http --verify=no'
 
 # Alias to clean all branches that have been pushed
 # alias git-branch-clean="git fetch --all --prune && git branch -D $(git branch -vv | grep ': gone]'|  grep -v "\*" | awk '{ print $1; }')"
