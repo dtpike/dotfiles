@@ -14,3 +14,6 @@ ln -sf ${DOTFILES_ROOT}/p10k.zsh ${HOME}/.p10k.zsh
 
 # Copy gitconfig if there isn't an existing one
 cp -n ${DOTFILES_ROOT}/gitconfig ${HOME}/.gitconfig
+
+# Install TPM
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

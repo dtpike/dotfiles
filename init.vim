@@ -41,6 +41,7 @@ Plug 'github/copilot.vim'
 Plug 'rhysd/vim-clang-format'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'danymat/neogen'
+Plug 'averms/black-nvim', {'do': ':UpdateRemotePlugins'}
 
 " Tempoarily adding vsnip but should replace this with something else
 Plug 'hrsh7th/vim-vsnip'
@@ -144,8 +145,6 @@ let g:clang_format#detect_style_file = 1
 let g:clang_format#auto_format = 1
 let g:clang_format#auto_format_on_insert_leave = 0
 let g:clang_format#auto_formatexpr = 0
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>fd :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><Leader>fd :ClangFormat<CR>
 
 
 "
@@ -169,7 +168,6 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> gf            :LspDocumentFormatSync<CR>
 
     let g:lsp_format_sync_timeout = 1000
-    " autocmd! BufWritePre * call execute('LspDocumentFormatSync')
     
     " refer to doc to add more commands
 endfunction
@@ -265,4 +263,10 @@ let g:vsnip_snippet_dir = '~/dotfiles/vsnip'
 
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/vim-lsp.log')
+
+"
+" Black
+let g:black_virtualenv = "~/.venv"
+let g:python3_host_prog = $HOME . '/.venv/bin/python3'
+
 " vim.lsp.set_log_level("trace")
