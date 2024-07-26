@@ -47,9 +47,8 @@ export GTEST_COLOR=yes
 alias l='ls -lhtr'
 
 # general aliases
-alias jad='cmake --build --preset debug -- -j 12 '
+alias jad='cmake --build --preset debug -- -j 8 '
 alias ja='cmake --build --preset development -- -j 8 '
-alias jap='cmake --build --preset production -- -j 12 '
 alias now='watch -x -t -n 0.01 date +%s.%N'
 alias du='du -h --max-depth=1'
 alias df='df -h'
