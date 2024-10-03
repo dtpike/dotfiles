@@ -12,6 +12,7 @@ set tabstop=4               " number of columns occupied by a tab character
 set shiftwidth=4            " width for autoindents
 set softtabstop=4           " see multiple spaces as tabstops so <BS> does the right thing
 set showtabline=2           " show the lightline bufferline tabline
+set relativenumber
 
 filetype plugin indent on   " allows auto-indenting depending on file type
 

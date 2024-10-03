@@ -5,6 +5,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Install trusty old zgen if it's not installed
+# if [[ ! -f "${HOME}/.zgen/zgen.sh" ]]; then
+#     git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
+# fi
+
 # load zgen
 source "${HOME}/.zgen/zgen.zsh"
 
@@ -32,19 +37,10 @@ fi
 
 CASE_SENSITIVE="true"
 
-export EDITOR=vim
-
-# Default to ccache if available
-if type ccache > /dev/null; then
-  ccache -M 50 > /dev/null
-  # Don't use cached preprocessor output
-  export CCACHE_CPP2=true
-fi
+export EDITOR=nvim
 
 # Ensure Google Test tests always show colour output:
 export GTEST_COLOR=yes
-
-alias l='ls -lhtr'
 
 # general aliases
 alias jad='cmake --build --preset debug -- -j 8 '
@@ -79,6 +75,9 @@ alias checkavx2='find -type f -executable | xargs objdump --disassemble | egrep 
 [ -f ~/.venv/bin/activate ] && source ~/.venv/bin/activate # Source virtual environment if activate script exists
 [ -f ~/.localrc ] && source ~/.localrc # Source a file with local zsh settings we don't want in github
 
+alias l='colorls -lA --sd'
+source $(dirname $(gem which colorls))/tab_complete.sh
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -88,9 +87,6 @@ export PATH="$HOME/bin:$PATH"
 
 # Increase the sccache size
 export SCCACHE_CACHE_SIZE="50G"
-
-# Turn off the fucking bell
-unsetopt BEEP
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
