@@ -6,9 +6,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Install trusty old zgen if it's not installed
-# if [[ ! -f "${HOME}/.zgen/zgen.sh" ]]; then
-#     git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
-# fi
+if [[ ! -d "${HOME}/.zgen" ]]; then
+    git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
+fi
 
 # load zgen
 source "${HOME}/.zgen/zgen.zsh"
@@ -75,8 +75,9 @@ alias checkavx2='find -type f -executable | xargs objdump --disassemble | egrep 
 [ -f ~/.venv/bin/activate ] && source ~/.venv/bin/activate # Source virtual environment if activate script exists
 [ -f ~/.localrc ] && source ~/.localrc # Source a file with local zsh settings we don't want in github
 
-alias l='colorls -lA --sd'
-source $(dirname $(gem which colorls))/tab_complete.sh
+# alias l='colorls -lA --sd'
+alias l='ls -ltrh'
+# source $(dirname $(gem which colorls))/tab_complete.sh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
