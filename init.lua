@@ -285,9 +285,7 @@ require('lazy').setup({
     end,
   },
 
-  { -- LSP Plugins
-    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-    -- used for completion, annotations and signatures of Neovim apis
+  { -- lazydev
     'folke/lazydev.nvim',
     ft = 'lua',
     opts = {
@@ -332,7 +330,22 @@ require('lazy').setup({
   },
 
   { --neogen
-    'danymat/neogen'
+    'danymat/neogen',
+    dependencies = {'nvim-treesitter'},
+    config = true,
+    input_after_comment = true,
+    languages = {
+      python = {
+        template = { annotation_convention = "google_docstrings" }
+      },
+      rust = {
+        template = { annotation_convention = "rustdoc" }
+      },
+    },
+    keys = {
+        {'<leader>nf', function() require('neogen').generate({ type = 'func' }) end, desc = "[N]eogen [F]unc"},
+        {'<leader>nc', function() require('neogen').generate({ type = 'class' }) end, desc = "[N]eogen [C]lass"},
+    },
   },
 
   { -- treesitter
@@ -365,7 +378,6 @@ require('lazy').setup({
     --    Treesitter + textobjects:
     --    https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
-
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -387,6 +399,3 @@ require('lazy').setup({
     },
   },
 })
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
