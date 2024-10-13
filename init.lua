@@ -58,10 +58,11 @@ require('lazy').setup({
 
   'tpope/vim-commentary',
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  'christoomey/vim-tmux-navigator', -- A plugin to facilitate navigating between vim and tmux
+  'christoomey/vim-tmux-navigator', -- Navigating between vim and tmux
   'psf/black', -- A plugin to format Python code by calling black
-  'neovim/nvim-lspconfig', -- Configurations for neovim's LSP
+  -- 'neovim/nvim-lspconfig', -- Configurations for neovim's LSP
   'github/copilot.vim', -- Copilot
+  'neovim/nvim-lspconfig', -- Neovim LSP configurations
 
   { -- Gitsigns
     'lewis6991/gitsigns.nvim',
@@ -227,6 +228,8 @@ require('lazy').setup({
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>st', builtin.treesitter, { desc = '[S]earch [T]reesitter' })
+      vim.keymap.set('n', '<leader>sc', builtin.git_commits, { desc = '[S]earch Git [C]ommits' })
+      vim.keymap.set('n', '<leader>sb', builtin.git_bcommits, { desc = '[S]earch Git [B]uffer commits' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -320,7 +323,7 @@ require('lazy').setup({
 
   { -- treesitter
     'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdat',
+    build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
@@ -369,3 +372,62 @@ require('lazy').setup({
     },
   },
 })
+
+-- LSP config (cpp)
+local lspconfig = require'lspconfig'
+-- We check if a language server is available before setting it up.
+-- Otherwise, we'll get errors when loading files.
+
+-- Set up clangd
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.offsetEncoding = 'utf-8'
+require('lspconfig').clangd.setup{
+  cmd = { "clangd", "--background-index", "--clang-tidy" },
+  capabilities = capabilities,
+}
+
+-- LSP config (python)
+require('lspconfig').ruff_lsp.setup {
+  init_options = {
+    settings = {
+      -- Any extra CLI arguments for `ruff` go here.
+      args = {},
+    }
+  }
+}
+
+require('lspconfig').pyright.setup {
+  settings = {
+    pyright = {
+      -- Using Ruff's import organizer
+      disableOrganizeImports = true,
+    },
+    python = {
+      analysis = {
+        -- Ignore all files for analysis to exclusively use Ruff for linting
+        ignore = { '*' },
+      },
+    },
+  },
+}
+
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+vim.keymap.set('n', 'ga', vim.lsp.buf.code_action)
+vim.keymap.set('n', '[g', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']g', vim.diagnostic.goto_next)
+vim.keymap.set('n', ']g', vim.diagnostic.goto_next)
+vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references)
+
+vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
+
+vim.diagnostic.config({
+  signs = {
+    text = {
+        [vim.diagnostic.severity.ERROR] = '✗',
+        [vim.diagnostic.severity.WARN] = '!',
+        [vim.diagnostic.severity.HINT] = '#',
+    },
+  },
+})
+
+
